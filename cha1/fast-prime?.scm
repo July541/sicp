@@ -1,0 +1,16 @@
+(define (expmod base exp m)
+    (cond ((= exp 0) 1)
+          ((even? exp)
+              (remainder (square (expmod base (/ exp 2) m)) m))
+          ((odd? exp)
+              (remainder (* base (expmod base (-1+ exp) m)) m))))
+
+(define (fermat-test n)
+    (define (try-it a)
+        (= (expmod a n n) a))
+    (try-it (1+ (random (-1+ n)))))
+
+(define (fast-prime? n times)
+    (cond ((= times 0) true)
+          ((fermat-test n) (fast-prime? n (-1+ times)))
+          (else false)))
