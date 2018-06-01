@@ -1,6 +1,8 @@
-; Return itself of n
+(load "43.scm")
 
-(define (identity n)
+(define dx 0.001)
+
+(define (smooth f)
     (lambda (x)
         (/ (+ (f (- x dx))
               (f x)
@@ -8,4 +10,4 @@
         3)))
 
 (define (smooth-ntimes f times)
-    ((repeat smooth times) f))
+((repeat smooth times) f))
